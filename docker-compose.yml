@@ -1,0 +1,23 @@
+services:
+  app-financas:
+    image: ${USER_DOCKER}/app-financas
+    restart: always
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    ports:
+      - '8081:8081'
+    depends_on:
+      - mysql
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE='${SCHEMA}
+      - 'MYSQL_PASSWORD='${DB_PASSWORD}
+      - 'MYSQL_ROOT_PASSWORD='{DB_PASSWORD}
+      - 'MYSQL_USER='${DB_USERNAME}
+    ports:
+      - '3306:3306'
+networks:
+  app-network:
+    driver: bridge

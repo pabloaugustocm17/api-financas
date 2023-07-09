@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: app-financas
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+  flyway:
+    url: ${FLYWAL_URL}
+    schemas: app-financas
+    user: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
