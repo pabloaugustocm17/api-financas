@@ -17,4 +17,16 @@ public class User {
     private String password;
     private LocalDateTime created_date;
 
+    public User(){}
+
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.created_date = LocalDateTime.now();
+    }
+
+    public UUID _getId(){
+        return this.id;
+    }
 }
