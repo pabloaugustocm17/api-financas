@@ -9,7 +9,7 @@ spring:
     password: ${DB_PASSWORD}
     url: ${DB_URL}
   flyway:
-    url: ${FLYWAL_URL}
+    url: ${FLYWAY_URL}
     schemas: app-financas
     user: ${DB_USERNAME}
     password: ${DB_PASSWORD}
