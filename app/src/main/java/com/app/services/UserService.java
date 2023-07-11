@@ -25,7 +25,7 @@ public class UserService {
         this.USER_REPOSITORY = userRepository;
     }
 
-    /* JPA Comunication */
+    /* JPA Communication */
 
     public UUID _createUser(UserDTO user_dto){
 
@@ -35,7 +35,7 @@ public class UserService {
 
         USER_REPOSITORY.save(user_save);
 
-        return user_save._getId();
+        return user_save.getId();
 
     }
 
@@ -47,6 +47,16 @@ public class UserService {
 
         return user.get();
 
+    }
+
+    public User _findUserByUUID(UUID id_user){
+
+        Optional<User> user = USER_REPOSITORY.findById(id_user);
+
+        if(user.isEmpty())
+            throw new UserException(ExceptionConsts.USER_NO_EXIST);
+
+        return user.get();
     }
 
     /* Utils */
