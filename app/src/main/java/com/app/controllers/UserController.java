@@ -1,15 +1,14 @@
 package com.app.controllers;
 
 import com.app.dtos.UserDTO;
+import com.app.models.User;
 import com.app.responses.ErrorResponse;
 import com.app.responses.SuccessResponse;
+import com.app.services.TokenService;
 import com.app.services.UserService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,10 +20,13 @@ public class UserController {
 
     private final UserService USER_SERVICE;
 
+    private final TokenService TOKEN_SERVICE;
+
     /* Constructor */
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, TokenService tokenService){
         this.USER_SERVICE = userService;
+        this.TOKEN_SERVICE = tokenService;
     }
 
     /* Posts */
@@ -38,6 +40,21 @@ public class UserController {
         UUID id = USER_SERVICE._createUser(user_dto);
 
         return SuccessResponse._success(id);
+    }
+
+    /* Gets */
+
+    @GetMapping
+    @RateLimiter(name = "get-user", fallbackMethod = "_fallbackGetUser")
+    public ResponseEntity<?> _getUser(
+            @RequestHeader("Authorization") String authorization
+    ){
+
+        UUID token = UUID.fromString(authorization);
+
+        User user = TOKEN_SERVICE._getUserByToken(token);
+
+        return SuccessResponse._success(user);
     }
 
     /* Fallbacks */
