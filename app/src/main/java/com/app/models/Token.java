@@ -24,7 +24,7 @@ public class Token {
         this.last_access = LocalDateTime.now();
     }
 
-    public UUID _getId(){
+    public UUID getId(){
         return this.id;
     }
 }

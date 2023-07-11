@@ -41,9 +41,9 @@ public class LoginController {
 
         User user = USER_SERVICE._realizeLogin(login);
 
-        Token token = TOKEN_SERVICE._createTokenUser(user._getEmail());
+        Token token = TOKEN_SERVICE._createTokenUser(user.getEmail());
 
-        return SuccessResponse._success(token._getId());
+        return SuccessResponse._success(token.getId());
 
     }
 

@@ -30,11 +30,15 @@ public class User {
         this.created_date = LocalDateTime.now();
     }
 
-    public UUID _getId(){
+    public UUID getId(){
         return this.id;
     }
 
-    public String _getEmail(){
+    public String getEmail(){
         return this.email;
+    }
+
+    public String getName(){
+        return this.name;
     }
 }
