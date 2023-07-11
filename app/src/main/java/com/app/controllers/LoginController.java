@@ -1,10 +1,11 @@
 package com.app.controllers;
 
 import com.app.dtos.LoginDTO;
-import com.app.dtos.UserDTO;
+import com.app.models.Token;
 import com.app.models.User;
 import com.app.responses.ErrorResponse;
 import com.app.responses.SuccessResponse;
+import com.app.services.TokenService;
 import com.app.services.UserService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,13 @@ public class LoginController {
 
     private final UserService USER_SERVICE;
 
+    private final TokenService TOKEN_SERVICE;
+
     /* Constructor */
 
-    public LoginController(UserService userService){
+    public LoginController(UserService userService, TokenService tokenService){
         this.USER_SERVICE = userService;
+        this.TOKEN_SERVICE = tokenService;
     }
 
     /* Posts */
@@ -37,7 +41,9 @@ public class LoginController {
 
         User user = USER_SERVICE._realizeLogin(login);
 
-        return SuccessResponse._success(user._getId());
+        Token token = TOKEN_SERVICE._createTokenUser(user._getEmail());
+
+        return SuccessResponse._success(token._getId());
 
     }
 
