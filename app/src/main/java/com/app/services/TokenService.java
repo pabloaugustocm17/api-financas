@@ -1,11 +1,15 @@
 package com.app.services;
 
+import com.app.exceptions.UserException;
 import com.app.mappers.TokenMapper;
 import com.app.models.Token;
+import com.app.models.User;
 import com.app.repositories.TokenRepository;
+import com.app.utils.ExceptionConsts;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TokenService {
@@ -20,7 +24,7 @@ public class TokenService {
         this.TOKEN_REPOSITORY = tokenRepository;
     }
 
-    /* JPA Comunication */
+    /* JPA Communication */
 
     public Token _createTokenUser(String email){
 
@@ -29,6 +33,17 @@ public class TokenService {
         TOKEN_REPOSITORY.save(token);
 
         return token;
+
+    }
+
+    public User _getUserByToken(UUID token){
+
+        Optional<User> user = TOKEN_REPOSITORY._findUserByToken(token);
+
+        if(user.isEmpty())
+            throw new UserException(ExceptionConsts.USER_NO_EXIST);
+
+        return user.get();
 
     }
 
