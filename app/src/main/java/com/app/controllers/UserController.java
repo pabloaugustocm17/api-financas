@@ -63,4 +63,8 @@ public class UserController {
         return ErrorResponse._forbidden(e.getMessage());
     }
 
+    public ResponseEntity<?> _fallbackGetUser(String authorization, Exception e){
+        return ErrorResponse._forbidden(e.getMessage());
+    }
+
 }
