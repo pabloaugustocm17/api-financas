@@ -6,4 +6,7 @@ public interface ExceptionConsts {
 
     String LOGIN_ERROR = "Email or Password are incorrect";
 
+    String USER_NO_EXIST = "User no exist";
+
+    String USER_HAVE_WALLET = "User already have a wallet";
 }
