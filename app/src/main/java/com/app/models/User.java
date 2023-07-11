@@ -12,9 +12,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String name;
+
     private String email;
+
     private String password;
+
     private LocalDateTime created_date;
 
     public User(){}
@@ -28,5 +32,9 @@ public class User {
 
     public UUID _getId(){
         return this.id;
+    }
+
+    public String _getEmail(){
+        return this.email;
     }
 }
