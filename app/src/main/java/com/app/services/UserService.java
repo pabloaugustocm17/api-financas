@@ -1,5 +1,6 @@
 package com.app.services;
 
+import com.app.dtos.LoginDTO;
 import com.app.dtos.UserDTO;
 import com.app.exceptions.UserException;
 import com.app.mappers.UserMapper;
@@ -38,7 +39,25 @@ public class UserService {
 
     }
 
+    public User _realizeLogin(LoginDTO login){
+
+        Optional<User> user = USER_REPOSITORY._realizeLogin(login.email(), login.password());
+
+        this._verifyLogin(user);
+
+        return user.get();
+
+    }
+
     /* Utils */
+
+    private void _verifyLogin(Optional<User> user){
+
+        if(user.isEmpty()){
+            throw new UserException(ExceptionConsts.LOGIN_ERROR);
+        }
+
+    }
 
     private void _verifyUser(String email){
 
