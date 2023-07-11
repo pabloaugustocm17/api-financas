@@ -11,4 +11,8 @@ public class ErrorResponse {
 
     }
 
+    public static ResponseEntity<?> _unauthorized(Object body){
+        return new ResponseEntity<>(body, HttpStatusCode.valueOf(401));
+    }
+
 }
