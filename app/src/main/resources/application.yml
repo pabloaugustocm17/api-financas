@@ -25,3 +25,6 @@ resilience4j:
       create-user:
         limit-for-period: 2
         limit-refresh-period: 10s
+      login:
+        limit-for-period: 1
+        limit-refresh-period: 60s
