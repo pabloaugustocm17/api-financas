@@ -59,6 +59,14 @@ public class UserService {
         return user.get();
     }
 
+    public boolean _isUserExist(String email){
+
+        Optional<User> user = USER_REPOSITORY.findUserByEmail(email);
+
+        return user.isPresent();
+
+    }
+
     /* Utils */
 
     private void _verifyLogin(Optional<User> user){
