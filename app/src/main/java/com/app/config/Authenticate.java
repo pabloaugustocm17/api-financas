@@ -52,11 +52,11 @@ public class Authenticate implements Filter {
 
     public void _doAuthenticate(String id_authenticate) throws ServletException {
 
-       UUID id = UUID.fromString(id_authenticate);
+        UUID id = UUID.fromString(id_authenticate);
 
-       Optional<Token> token = TOKEN_REPOSITORY.findById(id);
+        Optional<Token> token = TOKEN_REPOSITORY.findById(id);
 
-       if(token.isEmpty())
-           throw new ServletException("No Authorization");
+        if(token.isEmpty())
+            throw new ServletException("No Authorization");
     }
 }
