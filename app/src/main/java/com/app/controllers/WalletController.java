@@ -1,17 +1,14 @@
 package com.app.controllers;
 
-import com.app.dtos.WalletDTO;
 import com.app.models.User;
+import com.app.models.Wallet;
 import com.app.responses.ErrorResponse;
 import com.app.responses.SuccessResponse;
 import com.app.services.UserService;
 import com.app.services.WalletService;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -34,13 +31,13 @@ public class WalletController {
 
     /* Posts */
 
-    @PostMapping
+    @PostMapping("{id_user}")
     @RateLimiter(name = "create-wallet", fallbackMethod = "_fallbackCreateWallet")
     public ResponseEntity<?> _createWallet(
-            @RequestBody WalletDTO walletDTO
+            @PathVariable String id_user
     ){
 
-        User user = USER_SERVICE._findUserByUUID(walletDTO.id_user());
+        User user = USER_SERVICE._findUserByUUID(UUID.fromString(id_user));
 
         UUID id_wallet = WALLET_SERVICE._createWallet(user);
 
@@ -48,9 +45,22 @@ public class WalletController {
 
     }
 
+    @GetMapping("/{id_user}")
+    public ResponseEntity<?> _getWalletsUser(
+            @PathVariable String id_user
+    ){
+
+        User user = USER_SERVICE._findUserByUUID(UUID.fromString(id_user));
+
+        Wallet wallet = WALLET_SERVICE._getWalletByUser(user);
+
+        return SuccessResponse._success(wallet);
+
+    }
+
     /* Fallbacks */
 
-    public ResponseEntity<?> _fallbackCreateWallet(WalletDTO walletDTO, Exception e){
+    public ResponseEntity<?> _fallbackCreateWallet(String id_user, Exception e){
         return ErrorResponse._forbidden(e.getMessage());
     }
 }
