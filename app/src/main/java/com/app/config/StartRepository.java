@@ -1,12 +1,7 @@
 package com.app.config;
 
-
 import com.app.dtos.UserDTO;
-import com.app.mappers.UserMapper;
 import com.app.models.Token;
-import com.app.models.User;
-import com.app.repositories.TokenRepository;
-import com.app.repositories.UserRepository;
 import com.app.services.TokenService;
 import com.app.services.UserService;
 import org.slf4j.Logger;
