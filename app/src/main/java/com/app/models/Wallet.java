@@ -15,16 +15,20 @@ public class Wallet {
     private Double amount;
 
     @OneToOne(targetEntity = User.class, cascade = CascadeType.REFRESH)
-    private User user;
+    private User user_id;
 
     public Wallet(){}
 
     public Wallet(User user){
-        this.user = user;
+        this.amount = 0.0;
+        this.user_id = user;
     }
 
     public UUID getId(){
         return this.id;
     }
 
+    public Double getAmount(){
+        return this.amount;
+    }
 }
