@@ -9,4 +9,6 @@ public interface ExceptionConsts {
     String USER_NO_EXIST = "User no exist";
 
     String USER_HAVE_WALLET = "User already have a wallet";
+
+    String WALLET_NO_EXIST = "Wallet no exist";
 }
