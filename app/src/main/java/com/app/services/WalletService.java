@@ -8,6 +8,7 @@ import com.app.repositories.WalletRepository;
 import com.app.utils.ExceptionConsts;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -38,11 +39,21 @@ public class WalletService {
 
     }
 
+    public Wallet _getWalletByUser(User user){
+
+        Optional<Wallet> wallet = WALLET_REPOSITORY.returnWalletByUserId(user.getId());
+
+        if(wallet.isEmpty())
+            throw new WalletException(ExceptionConsts.WALLET_NO_EXIST);
+
+        return wallet.get();
+    }
+
     /* Utils */
 
     public void _verifyWalletUser(User user){
 
-        Optional<Wallet> wallet = WALLET_REPOSITORY.findWalletByUser(user);
+        Optional<Wallet> wallet = WALLET_REPOSITORY.returnWalletByUserId(user.getId());
 
         if(wallet.isPresent())
             throw new WalletException(ExceptionConsts.USER_HAVE_WALLET);
